@@ -1,0 +1,14 @@
+0. JWT use
+1. Email verification
+2. Verification code check
+3. OTP expiry time-5 min
+
+
+1. Shopkeeper
+2. Customer
+3. Dealer
+4. Arot
+5. Farmer
+6. Purchase
+7. Sales
+8. Pre-Order(customer,shopkepper,dealer,arot)

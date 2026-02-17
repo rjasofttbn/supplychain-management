@@ -1,0 +1,75 @@
+############################
+# HELP FILE
+############################
+HELP.md
+
+############################
+# Backend - Maven / Spring Boot
+############################
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+############################
+# Logs
+############################
+*.log
+logs/
+
+############################
+# STS
+############################
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+############################
+# IntelliJ IDEA
+############################
+.idea/
+*.iws
+*.iml
+*.ipr
+
+############################
+# NetBeans
+############################
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+############################
+# VS Code
+############################
+.vscode/
+
+############################
+# Frontend - React / Vite
+############################
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+
+############################
+# Environment Variables
+############################
+.env
+.env.local
+.env.development
+.env.production
+
+############################
+# OS Files
+############################
+.DS_Store
+Thumbs.db
