@@ -2,6 +2,7 @@ package com.example.supplyChainSystem.common.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import java.util.Date;
@@ -18,12 +19,20 @@ public class JwtService {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 
-    public String generateToken(String username) {
+//    public String generateToken(String username) {
+//        return Jwts.builder()
+//                .subject(username)
+//                .issuedAt(new Date())
+//                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+//                .signWith(getSigningKey())
+//                .compact();
+//    }
+    public String generateToken(String email) {
         return Jwts.builder()
-                .subject(username)
-                .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
-                .signWith(getSigningKey())
+                .subject(email) // .setSubject() is now just .subject()
+                .issuedAt(new Date()) // .setIssuedAt() is now .issuedAt()
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                .signWith(getSigningKey()) // Algorithm is inferred from the key
                 .compact();
     }
 

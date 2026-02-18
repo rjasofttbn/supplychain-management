@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import com.example.supplyChainSystem.common.audit.BaseEntity;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -23,6 +25,10 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    private boolean enabled = false; // User cannot login until true
+    private String verificationToken;
+    private LocalDateTime tokenExpiry;
 
     // Explicit getter for safety
     public String getPassword() {
