@@ -11,16 +11,22 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class Shopkeeper {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
+
     private String phone;
+
     private String address;
 
-    @Column(name = "created_by")
-    private String createdBy;
+    private String status = "active";
+
+    @Column(name = "created_by", nullable = false)
+    private Long createdBy;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

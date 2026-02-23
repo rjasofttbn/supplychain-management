@@ -15,15 +15,17 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "customer_name")
-    private String customerName;
+    @Column(name = "name")
+    private String name;
 
     private String phone;
+
+    private String address;
 
     private String status = "active"; // Default status
 
     @Column(name = "created_by")
-    private String createdBy;
+    private Long createdBy;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

@@ -17,8 +17,8 @@ import org.hibernate.annotations.SQLRestriction; // Add this import
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-//@SQLRestriction("deleted_at IS NULL") // This is the Hibernate 6+ replacement for @Where
 public class Item {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,10 +29,25 @@ public class Item {
     @Column(name = "name_bn", unique = true, nullable = false)
     private String nameBn;
 
+    @Column(nullable = false)
     private String unit;
 
-    @Column(name = "created_by")
-    private String createdBy;
+    @Column(name = "sku", unique = true, nullable = false)
+    private String sku;
+
+    @Column(name = "purchase_price", nullable = false)
+    private Double purchasePrice = 0.0;
+
+    @Column(name = "selling_price", nullable = false)
+    private Double sellingPrice = 0.0;
+
+    @Column(name = "min_stock_level", nullable = false)
+    private Integer minStockLevel = 0;
+
+    private String status = "active";
+
+    @Column(name = "created_by", nullable = false)
+    private Long createdBy;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

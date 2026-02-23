@@ -34,7 +34,7 @@ public class CustomerService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        customer.setCreatedBy(String.valueOf(user.getId()));
+        customer.setCreatedBy(Long.valueOf(String.valueOf(user.getId())));
         return customerRepository.save(customer);
     }
 
@@ -52,7 +52,7 @@ public class CustomerService {
 
     // Add this to CustomerService.java
     public Customer updateCustomer(Long id, Customer updatedData) {
-        Customer existingCustomer = getById(id); // Reuses the "not deleted" check logic
+        Customer existingCustomer = getById(id); // Check "not deleted"
 
         // Validate phone duplicate if phone is being changed
         if (!existingCustomer.getPhone().equals(updatedData.getPhone())) {
@@ -61,7 +61,7 @@ public class CustomerService {
             }
         }
 
-        existingCustomer.setCustomerName(updatedData.getCustomerName());
+        existingCustomer.setName(updatedData.getName());
         existingCustomer.setPhone(updatedData.getPhone());
         // status and createdBy remain unchanged
 

@@ -39,15 +39,28 @@ public class ItemService {
             throw new RuntimeException("এই নামে একটি পণ্য ইতিমধ্যে বিদ্যমান। (Item with this Bengali name already exists.)");
         }
 
-        item.setCreatedBy(username);
+        item.setCreatedBy(Long.valueOf(username));
         return itemRepository.save(item);
     }
 
+//    public Item updateItem(Long id, Item itemDetails) {
+//        Item item = itemRepository.findById(id).orElseThrow();
+//        item.setName(itemDetails.getName());
+//        item.setNameBn(itemDetails.getNameBn());
+//        item.setUnit(itemDetails.getUnit());
+//        return itemRepository.save(item);
+//    }
     public Item updateItem(Long id, Item itemDetails) {
         Item item = itemRepository.findById(id).orElseThrow();
+
         item.setName(itemDetails.getName());
         item.setNameBn(itemDetails.getNameBn());
         item.setUnit(itemDetails.getUnit());
+        item.setSku(itemDetails.getSku());
+        item.setPurchasePrice(itemDetails.getPurchasePrice());
+        item.setSellingPrice(itemDetails.getSellingPrice());
+        item.setMinStockLevel(itemDetails.getMinStockLevel());
+
         return itemRepository.save(item);
     }
 

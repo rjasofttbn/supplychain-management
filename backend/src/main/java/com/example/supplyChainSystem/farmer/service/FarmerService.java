@@ -36,7 +36,7 @@ public class FarmerService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         // 2. Set the ID (as a String) instead of the email
-        farmer.setCreatedBy(String.valueOf(user.getId()));
+        farmer.setCreatedBy(Long.valueOf(String.valueOf(user.getId())));
 
         return farmerRepository.save(farmer);
     }

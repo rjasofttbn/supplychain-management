@@ -5,13 +5,17 @@ import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.example.supplyChainSystem.common.enums.PreOrderStatus;
+import jakarta.persistence.*;
+
 @Entity
-@Table(name = "pre_orders_customer")
-@Data
-@AllArgsConstructor
+@Table(name = "pre_order_customers")
+@Data // <--- THIS GENERATES THE MISSING SETTERS AND GETTERS
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class PreOrderCustomer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,10 +34,12 @@ public class PreOrderCustomer {
     @Column(name = "delivery_date")
     private LocalDate deliveryDate;
 
-    private String status = "pending"; // pending, confirmed, delivered, cancelled
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private PreOrderStatus status = PreOrderStatus.PENDING;
 
     @Column(name = "created_by")
-    private String createdBy;
+    private Long createdBy;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

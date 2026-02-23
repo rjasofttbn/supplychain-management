@@ -1,19 +1,20 @@
 package com.example.supplyChainSystem.preorder.service;
 
-
 import com.example.supplyChainSystem.auth.entity.User;
 import com.example.supplyChainSystem.auth.repository.UserRepository;
+import com.example.supplyChainSystem.common.enums.PreOrderStatus;
 import com.example.supplyChainSystem.preorder.entity.PreOrderCustomer;
 import com.example.supplyChainSystem.preorder.repository.PreOrderCustomerRepository;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class PreOrderCustomerService {
+
     private final PreOrderCustomerRepository repository;
     private final UserRepository userRepository;
 
@@ -30,7 +31,18 @@ public class PreOrderCustomerService {
     public PreOrderCustomer create(PreOrderCustomer order, String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        order.setCreatedBy(String.valueOf(user.getId()));
+
+        // Simplified the ID assignment
+        order.setCreatedBy(user.getId());
+        return repository.save(order);
+    }
+
+    public PreOrderCustomer updateStatus(Long id, String status) {
+        PreOrderCustomer order = getById(id);
+
+        // Convert the String to the Enum type
+        order.setStatus(PreOrderStatus.valueOf(status.toUpperCase()));
+
         return repository.save(order);
     }
 
@@ -41,14 +53,11 @@ public class PreOrderCustomerService {
         existing.setQuantity(data.getQuantity());
         existing.setDateOfOrder(data.getDateOfOrder());
         existing.setDeliveryDate(data.getDeliveryDate());
-        existing.setStatus(data.getStatus());
-        return repository.save(existing);
-    }
 
-    public PreOrderCustomer updateStatus(Long id, String status) {
-        PreOrderCustomer order = getById(id);
-        order.setStatus(status);
-        return repository.save(order);
+        // Ensure the status being passed from 'data' is assigned correctly
+        existing.setStatus(data.getStatus());
+
+        return repository.save(existing);
     }
 
     public void delete(Long id) {

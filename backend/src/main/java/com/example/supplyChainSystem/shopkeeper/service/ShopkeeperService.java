@@ -25,7 +25,7 @@ public class ShopkeeperService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Logged in user not found"));
 
-        shopkeeper.setCreatedBy(String.valueOf(user.getId()));
+        shopkeeper.setCreatedBy(Long.valueOf(String.valueOf(user.getId())));
         return shopkeeperRepository.save(shopkeeper);
     }
     public List<Shopkeeper> getAllActive() {

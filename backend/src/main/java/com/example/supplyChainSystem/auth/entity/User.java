@@ -30,6 +30,8 @@ public class User extends BaseEntity {
     private String verificationToken;
     private LocalDateTime tokenExpiry;
 
+    @Column(name = "email_verified_at")
+    private LocalDateTime emailVerifiedAt;
     // Explicit getter for safety
     public String getPassword() {
         return password;

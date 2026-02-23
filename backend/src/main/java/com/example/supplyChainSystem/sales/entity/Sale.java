@@ -12,25 +12,34 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class Sale {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "buyer_type")
-    private String buyerType; // e.g., "Customer", "Shopkeeper"
+    @Column(name = "dealer_id", nullable = false)
+    private Long dealerId;
 
-    @Column(name = "item_id")
+    @Column(name = "shopkeeper_id", nullable = false)
+    private Long shopkeeperId;
+
+    @Column(name = "item_id", nullable = false)
     private Long itemId;
 
+    @Column(nullable = false)
     private Double quantity;
 
-    @Column(name = "sell_price_per_unit")
-    private Double sellPricePerUnit;
+    @Column(name = "price", nullable = false)
+    private Double price;
 
-    private LocalDate date;
+    @Column(name = "total_amount", nullable = false)
+    private Double totalAmount;
 
-    @Column(name = "created_by")
-    private String createdBy;
+    @Column(nullable = false)
+    private String status = "pending";
+
+    @Column(name = "created_by", nullable = false)
+    private Long createdBy;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

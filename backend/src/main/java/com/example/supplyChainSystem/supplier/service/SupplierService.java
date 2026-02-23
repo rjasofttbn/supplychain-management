@@ -35,7 +35,7 @@ public class SupplierService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        supplier.setCreatedBy(String.valueOf(user.getId()));
+        supplier.setCreatedBy(Long.valueOf(String.valueOf(user.getId())));
         return supplierRepository.save(supplier);
     }
 
