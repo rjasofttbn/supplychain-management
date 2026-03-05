@@ -69,10 +69,6 @@
 			<version>0.12.5</version>
 			<scope>compile</scope>
 		</dependency>
-
-
-
-
 		<!-- Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
