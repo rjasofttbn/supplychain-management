@@ -13,6 +13,7 @@ public class UserTest {
 
     @Test
     void test(){
+        System.out.println("Test Line");
         System.out.println(userRepository.findByEmail("omar.faruk@gigatechltd97.com").get());
     }
 }
