@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class SupplierTest {
-
     @Autowired
     SupplierRepository supplierRepository;
 
