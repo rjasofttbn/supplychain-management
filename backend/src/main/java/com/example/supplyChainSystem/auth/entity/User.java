@@ -18,7 +18,8 @@ public class User extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String email;
 
-    private String password;// This maps to the clear_password column in MySQL
+    @Column(name = "password") // The hashed password
+    private String password;
 
     @Column(name = "clear_password")
     private String clearPassword;

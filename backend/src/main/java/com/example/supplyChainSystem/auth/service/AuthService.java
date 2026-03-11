@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.SimpleMailMessage; // You will need this too
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -17,14 +18,40 @@ public class AuthService {
     private final UserRepository userRepository;
     private final JavaMailSender mailSender;
 
+
+    @Transactional
     public void register(User user) {
+        // 1. Prepare user data
         user.setVerificationToken(UUID.randomUUID().toString());
         user.setTokenExpiry(LocalDateTime.now().plusHours(24));
-        user.setEnabled(false); // Disable until verified
+        user.setEnabled(false);
+
+        // 2. Save to database (This stays if no exception escapes this method)
         userRepository.save(user);
 
-        sendVerificationEmail(user);
+        // 3. Try to send email, but swallow the error
+        try {
+            sendVerificationEmail(user);
+        } catch (Exception e) {
+            // We only print the error so the Transaction can still COMMIT
+            System.err.println("CRITICAL: User was saved but email failed. Reason: " + e.getMessage());
+        }
     }
+
+//    @Transactional
+//    public void register(User user) {
+//        user.setVerificationToken(UUID.randomUUID().toString());
+//        user.setTokenExpiry(LocalDateTime.now().plusHours(24));
+//        user.setEnabled(false); // Disable until verified
+//        userRepository.save(user);
+//
+//        try {
+//            sendVerificationEmail(user);
+//        } catch (Exception e) {
+//            // Log the error but don't re-throw it
+//            System.err.println("User saved, but email failed: " + e.getMessage());
+//        }
+//    }
 
     private void sendVerificationEmail(User user) {
         try {
